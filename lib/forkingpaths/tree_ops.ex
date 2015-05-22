@@ -27,19 +27,21 @@ defmodule ForkingPaths.Helper do
     Enum.map(graph, fn {ident, graph_node} -> { ident, graph_node.value } end)
   end
   
+  def normalize(vector) do
+    norm = Enum.reduce(vector, 0, fn { _identifier, val }, acc -> 
+      val * val + acc
+    end) |> :math.sqrt
+
+    Enum.map(vector, fn { identifier, val } ->
+      { identifier, val / norm }
+    end)
+  end
+
   @doc """
   Transform a graph into a vector and apply L2 normalization.
   """
   def vectorize_and_normalize(graph) do
-    vect = vectorize(graph)
-    
-    norm = Enum.reduce(vect, 0, fn { _identifier, val }, acc -> 
-      val * val + acc
-    end) |> :math.sqrt
-
-    Enum.map(vect, fn { identifier, val } ->
-      { identifier, val / norm }
-    end)
+    vectorize(graph) |> normalize
   end
   
   

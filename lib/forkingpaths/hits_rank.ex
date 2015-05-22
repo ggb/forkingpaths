@@ -3,7 +3,6 @@ defmodule ForkingPaths.HitsRank do
 
   @moduledoc """
   
-  
   """
 
   @iteration_count 40

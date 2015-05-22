@@ -59,9 +59,7 @@ defmodule ForkingPaths.PageRank do
     graph
     # |> Helper.add_incoming_nodes
     |> concept_rank
-    |> Enum.map(fn { ident, hnode } ->
-      { ident, hnode.value }
-    end)
+    |> Helper.vectorize_and_normalize
     |> Enum.sort(fn { _, fst }, { _, scd } -> 
       fst > scd
     end)
