@@ -1,5 +1,5 @@
 defmodule ForkingPaths.DegreeRank do
-  alias ForkingPaths.TreeOperations
+  alias ForkingPaths.Helper
 
   def degree_rank(concepts) do
     Enum.map(concepts, fn { ident, hNode } ->
@@ -20,9 +20,9 @@ defmodule ForkingPaths.DegreeRank do
   @doc """
   
   """
-  def run(concepts) do
-    TreeOperations.get_cooccurance_graph(concepts)
-    |> TreeOperations.add_incoming_nodes
+  def run(graph) do
+    graph
+    |> Helper.add_incoming_nodes
     |> degree_rank
     |> normalize_ranks
     |> Enum.sort(fn { _, fst }, { _, scd } -> 

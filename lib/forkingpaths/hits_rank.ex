@@ -1,5 +1,5 @@
 defmodule ForkingPaths.HitsRank do
-  alias ForkingPaths.TreeOperations
+  alias ForkingPaths.Helper
 
   @moduledoc """
   
@@ -95,25 +95,9 @@ defmodule ForkingPaths.HitsRank do
   It than applies the HITS-algorithm on the graph. It afterwards sorts the 
   algorithms in descanding order.  
   """  
-  def run(concepts) do
-    TreeOperations.get_cooccurance_graph(concepts)
-    |> TreeOperations.add_incoming_nodes
-    |> concept_hits
-    |> Enum.map(fn { ident, { hub, auth } } ->
-      { ident, (hub + auth) / 2 }
-    end)
-    |> Enum.sort(fn { _, fst }, { _, scd } -> 
-      fst > scd
-    end)
-  end  
-  
-  @doc """
-  Runs the hubs and authorities-algorithm on a prebuild graph, e. g. a hierarchy.
-  It afterwards sorts the algorithms in descanding order.
-  """  
-  def run(concepts, hierarchy) do
-    TreeOperations.list_to_hierarchy(concepts, hierarchy)
-    |> TreeOperations.add_incoming_nodes
+  def run(graph) do
+    graph
+    |> Helper.add_incoming_nodes
     |> concept_hits
     |> Enum.map(fn { ident, { hub, auth } } ->
       { ident, (hub + auth) / 2 }

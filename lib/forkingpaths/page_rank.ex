@@ -1,5 +1,5 @@
 defmodule ForkingPaths.PageRank do
-  alias ForkingPaths.TreeOperations
+  alias ForkingPaths.Helper
   require Logger
 
   @moduledoc """
@@ -55,9 +55,9 @@ defmodule ForkingPaths.PageRank do
   @doc """
   
   """
-  def run(concepts) do
-    TreeOperations.get_cooccurance_graph(concepts)
-    |> TreeOperations.add_incoming_nodes
+  def run(graph) do
+    graph
+    |> Helper.add_incoming_nodes
     |> concept_rank
     |> Enum.map(fn { ident, hnode } ->
       { ident, hnode.value }
@@ -66,21 +66,5 @@ defmodule ForkingPaths.PageRank do
       fst > scd
     end)
   end 
-
-  @doc """
-  
-  """
-  def run(concepts, hierarchy) do
-    TreeOperations.list_to_hierarchy(concepts, hierarchy)
-    |> TreeOperations.add_incoming_nodes
-    |> concept_rank
-    |> Enum.map(fn { ident, hnode } ->
-      { ident, hnode.value }
-    end)
-    |> Enum.sort(fn { _, fst }, { _, scd } -> 
-      fst > scd
-    end)
-  end 
-  
 
 end
