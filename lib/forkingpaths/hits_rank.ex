@@ -97,7 +97,7 @@ defmodule ForkingPaths.HitsRank do
   """  
   def run(graph) do
     graph
-    |> Helper.add_incoming_nodes
+    # |> Helper.add_incoming_nodes
     |> concept_hits
     |> Enum.map(fn { ident, { hub, auth } } ->
       { ident, (hub + auth) / 2 }

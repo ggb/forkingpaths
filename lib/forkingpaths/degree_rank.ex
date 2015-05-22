@@ -22,7 +22,7 @@ defmodule ForkingPaths.DegreeRank do
   """
   def run(graph) do
     graph
-    |> Helper.add_incoming_nodes
+    # |> Helper.add_incoming_nodes
     |> degree_rank
     |> normalize_ranks
     |> Enum.sort(fn { _, fst }, { _, scd } -> 

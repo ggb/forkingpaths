@@ -57,7 +57,7 @@ defmodule ForkingPaths.PageRank do
   """
   def run(graph) do
     graph
-    |> Helper.add_incoming_nodes
+    # |> Helper.add_incoming_nodes
     |> concept_rank
     |> Enum.map(fn { ident, hnode } ->
       { ident, hnode.value }
