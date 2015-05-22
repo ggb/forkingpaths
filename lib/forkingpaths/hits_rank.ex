@@ -1,5 +1,4 @@
 defmodule ForkingPaths.HitsRank do
-  alias ForkingPaths.Helper
 
   @moduledoc """
   
@@ -39,7 +38,7 @@ defmodule ForkingPaths.HitsRank do
       # again... grab a node
       hnode = Dict.get(hierarchy, identifier)
       # but this time get all outgoing nodes
-      outgoing = hnode.broader ++ hnode.narrower ++ hnode.related
+      outgoing = hnode.outgoing #hnode.broader ++ hnode.narrower ++ hnode.related
       # and now sum up the authority values of the outgoing nodes 
       new_hub = Enum.reduce(outgoing, 0, fn ele, acc ->
         { _hub, auth } = Dict.get(concept_vals, ele)

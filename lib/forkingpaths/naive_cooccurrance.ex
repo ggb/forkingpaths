@@ -27,7 +27,7 @@ defmodule ForkingPaths.NaiveCooccurrance do
 
   defp transform_to_graph_nodes(nodes) do
     Enum.map(nodes, fn { key, val } ->
-      hNode = %GraphNode{ identifier: key, prefLabel: key, related: Set.to_list(val) }
+      hNode = %GraphNode{ identifier: key, prefLabel: key, outgoing: Set.to_list(val) }
       { key, hNode }
     end) 
     |> Enum.into(HashDict.new)

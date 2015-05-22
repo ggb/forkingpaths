@@ -1,18 +1,23 @@
 defmodule ForkingPaths.Helper do
   alias ForkingPaths.GraphNode
   require Logger
-
-   
+  
   @doc """
   The graph ranking functions (PageRank and HITS) need to know, which 
   other nodes point to a specific node. The list of incoming nodes 
   is calculated in this function.
+
+  Only required if naive cooccurrance is used.
   """
   def add_incoming_nodes(hierarchy) do
     Enum.reduce(hierarchy, hierarchy, fn { _ident, hnode }, acc -> 
-      nodes = hnode.broader ++ hnode.narrower ++ hnode.related
+      nodes = hnode.outgoing # hnode.broader ++ hnode.narrower ++ hnode.related
       Enum.reduce(nodes, acc, fn outgoing, inner_acc ->
-        Dict.update(inner_acc, outgoing, %GraphNode{ identifier: outgoing, incoming: [ hnode.identifier ] }, fn val -> %{ val | incoming: [ hnode.identifier | val.incoming ] } end)
+        Dict.update(inner_acc, outgoing, %GraphNode{ identifier: outgoing, 
+          incoming: [ hnode.identifier ] }, 
+          fn val -> 
+            %{ val | incoming: [ hnode.identifier | val.incoming ] } 
+          end)
       end)
     end)
   end
@@ -27,6 +32,9 @@ defmodule ForkingPaths.Helper do
     Enum.map(graph, fn {ident, graph_node} -> { ident, graph_node.value } end)
   end
   
+  @doc """
+  Applies L2 normalization´.
+  """
   def normalize(vector) do
     norm = Enum.reduce(vector, 0, fn { _identifier, val }, acc -> 
       val * val + acc

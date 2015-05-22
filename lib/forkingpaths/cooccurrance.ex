@@ -2,15 +2,24 @@ defmodule ForkingPaths.Cooccurrance do
   alias ForkingPaths.GraphNode
   require Logger
 
+#  defp relation_update_without_reflection(gNode, old, new) do
+#  	# TODO: wie heißt die Funktion wirklich?
+#  	relation_update(old, new) |> Enum.with_out(gNode)
+#  end
+
+  defp relation_update(old, new) do
+  	Enum.uniq(old ++ new)
+  end
+
   defp add_to_graph(graph, gNode, incoming, outgoing) do
   	if Dict.has_key?(graph, gNode) do
   	  old_node = Dict.get(graph, gNode)
   	  new_node = %GraphNode{ identifier: gNode, prefLabel: gNode, 
-  	  	related: Enum.uniq(outgoing ++ old_node.related), 
-  	  	incoming: Enum.uniq(incoming ++ old_node.incoming) }
+  	  	outgoing: relation_update(outgoing, old_node.outgoing), 
+  	  	incoming: relation_update(incoming, old_node.incoming) }
   	  Dict.put(graph, gNode, new_node)
   	else
-  	  new_node = %GraphNode{ identifier: gNode, prefLabel: gNode, related: outgoing, incoming: incoming }
+  	  new_node = %GraphNode{ identifier: gNode, prefLabel: gNode, outgoing: outgoing, incoming: incoming }
   	  Dict.put_new(graph, gNode, new_node)
   	end
   end

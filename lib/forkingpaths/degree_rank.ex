@@ -3,7 +3,7 @@ defmodule ForkingPaths.DegreeRank do
 
   def degree_rank(concepts) do
     Enum.map(concepts, fn { ident, hNode } ->
-      { ident, length(hNode.incoming) + length(hNode.related) }
+      { ident, length(hNode.incoming) + length(hNode.outgoing) }
     end)  
   end
 

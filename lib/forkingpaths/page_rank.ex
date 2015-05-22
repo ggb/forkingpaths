@@ -14,7 +14,7 @@ defmodule ForkingPaths.PageRank do
     new_graph = Enum.map(graph, fn { ident, hnode } -> 
       pre_sum = Enum.reduce(hnode.incoming, 0, fn preident, acc ->
         prenode = Dict.get(graph, preident)
-        acc + prenode.value / length(prenode.broader ++ prenode.narrower ++ prenode.related)
+        acc + prenode.value / length(prenode.outgoing) # length(prenode.broader ++ prenode.narrower ++ prenode.related)
       end)
       # the calculation follows Mihalcau and Tarau, 2004
       { ident, %{ hnode | value: ( 1 - @damping_factor ) + @damping_factor * pre_sum } }

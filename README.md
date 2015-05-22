@@ -6,3 +6,8 @@ ForkingPaths is an elixir module for the creation of cooccurrance graphs from te
 ## Examples
 
 Coming soon...
+
+```bash
+iex(1)> ForkingPaths.Cooccurrance.get(1, text) |> ForkingPaths.HitsRank.run
+
+```
