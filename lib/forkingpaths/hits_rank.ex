@@ -93,7 +93,7 @@ defmodule ForkingPaths.HitsRank do
   It than applies the HITS-algorithm on the graph. It afterwards sorts the 
   algorithms in descanding order.  
   """  
-  def run(graph) do
+  def get(graph) do
     graph
     # |> Helper.add_incoming_nodes
     |> concept_hits

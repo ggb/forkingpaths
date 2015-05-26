@@ -20,7 +20,7 @@ defmodule ForkingPaths.DegreeRank do
   @doc """
   
   """
-  def run(graph) do
+  def get(graph) do
     graph
     # |> Helper.add_incoming_nodes
     |> degree_rank

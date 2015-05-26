@@ -55,7 +55,7 @@ defmodule ForkingPaths.PageRank do
   @doc """
   
   """
-  def run(graph) do
+  def get(graph) do
     graph
     # |> Helper.add_incoming_nodes
     |> concept_rank
