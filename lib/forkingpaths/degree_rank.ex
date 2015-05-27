@@ -1,9 +1,10 @@
 defmodule ForkingPaths.DegreeRank do
   alias ForkingPaths.Helper
 
-  def degree_rank(concepts) do
-    Enum.map(concepts, fn { ident, hNode } ->
-      { ident, length(hNode.incoming) + length(hNode.outgoing) }
+  def degree_rank(graph) do
+    :digraph.vertices(graph)
+    |> Enum.map(fn vertex ->
+      { vertex, :digraph.in_degree(graph, vertex) + :digraph.out_degree(graph, vertex) }
     end)  
   end
 
