@@ -2,11 +2,6 @@ defmodule ForkingPaths.Cooccurrance do
   alias ForkingPaths.GraphNode
   require Logger
 
-#  defp relation_update_without_reflection(gNode, old, new) do
-#  	# TODO: wie heißt die Funktion wirklich?
-#  	relation_update(old, new) |> Enum.with_out(gNode)
-#  end
-
   defp relation_update(old, new) do
   	Enum.uniq(old ++ new)
   end
