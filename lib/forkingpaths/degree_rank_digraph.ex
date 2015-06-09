@@ -8,16 +8,6 @@ defmodule ForkingPaths.DegreeRank2 do
     end)  
   end
 
-  defp normalize_ranks(ranked_concepts) do
-    { _ident, max_val } = Enum.max_by(ranked_concepts, fn { _ident, val } ->
-      val
-    end)
-    
-    Enum.map(ranked_concepts, fn { ident, val } ->
-      { ident, val / max_val }
-    end)
-  end
-
   @doc """
   
   """
@@ -29,7 +19,6 @@ defmodule ForkingPaths.DegreeRank2 do
     |> Enum.sort(fn { _, fst }, { _, scd } -> 
       fst > scd
     end)
-  end
-  
+  end  
 
 end
