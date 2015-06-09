@@ -24,7 +24,7 @@ defmodule ForkingPaths.BetweennessRank do
 
     Enum.map(vertices, fn vertex ->
       val = Enum.reduce(pairs_and_paths, 0, fn { { fst, scd }, path }, acc ->
-        if vertex != fst and vertex != scd and Enum.member?(path, vertex) do
+        if path != false and vertex != fst and vertex != scd and Enum.member?(path, vertex) do
           acc + 1
         else
           acc
