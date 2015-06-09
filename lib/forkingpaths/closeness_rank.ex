@@ -13,7 +13,11 @@ defmodule ForkingPaths.ClosenessRank do
         end
       end)
       
-      { vertex, 1 / val }
+      if val == 0 do
+        { vertex, 0 }
+      else
+        { vertex, 1 / val }
+      end
     end)
   end
 
