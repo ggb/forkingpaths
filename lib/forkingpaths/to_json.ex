@@ -25,11 +25,11 @@ defmodule ForkingPaths.JSON do
   	|> Enum.into(Map.new)
   end
 
-  def create_link_list(_with_indizes, [], _graph, result), do: result
+  def create_link_list(_with_indizes, [], _graph, result), do: result |> Enum.uniq
 
   def create_link_list(with_indizes, [ vertex | rest ], graph, result) do
   	current = Map.get(with_indizes, vertex)
-  	edges = :digraph.out_neighbours(graph, vertex) ++ :digraph.in_neighbours(graph, vertex)
+  	edges = ( :digraph.out_neighbours(graph, vertex) ++ :digraph.in_neighbours(graph, vertex) )
   	|> Enum.map(fn neighbour -> 
   	  %{ "source" => current, "target" => Map.get(with_indizes, neighbour), "value" => 1 }
   	end)
@@ -46,7 +46,8 @@ defmodule ForkingPaths.JSON do
   	node_list = create_node_list(value_map, vertices, [])
 
   	# create a list of links
-  	with_indizes = vertices_with_indizes(vertices)
+    # it is necessary to reverse the vertex-order!
+  	with_indizes = vertices_with_indizes(vertices |> Enum.reverse)
   	link_list = create_link_list(with_indizes, vertices, graph, [])
 
   	case JSX.encode(%{ "nodes" => node_list, "links" => link_list }) do
