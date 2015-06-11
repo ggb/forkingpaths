@@ -29,7 +29,7 @@ defmodule ForkingPaths.JSON do
 
   def create_link_list(with_indizes, [ vertex | rest ], graph, result) do
   	current = Map.get(with_indizes, vertex)
-  	edges = :digraph.out_neighbours(graph, vertex)
+  	edges = :digraph.out_neighbours(graph, vertex) ++ :digraph.in_neighbours(graph, vertex)
   	|> Enum.map(fn neighbour -> 
   	  %{ "source" => current, "target" => Map.get(with_indizes, neighbour), "value" => 1 }
   	end)
