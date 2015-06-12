@@ -52,5 +52,23 @@ defmodule ForkingPaths.Helper do
     vectorize(graph) |> normalize
   end
   
+  @doc """
+  Merges graph1 into graph2.
+  """
+  def merge(graph1, graph2) do
+    # create vertices
+    Enum.each(:digraph.vertices(graph1), fn vertex ->
+      :digraph.add_vertex(graph2, vertex)
+    end)
+
+    # create edges
+    Enum.each(:digraph.edges(graph1), fn edge ->
+      { _edge, v1, v2, _label } =  :digraph.edge(graph1, edge)
+      :digraph.add_edge(graph2, v1, v2)
+    end)
+
+    # return reference to graph2
+    graph2
+  end
   
 end
