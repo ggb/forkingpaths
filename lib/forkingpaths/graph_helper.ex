@@ -41,6 +41,7 @@ defmodule ForkingPaths.Helper do
     end) |> :math.sqrt
 
     Enum.map(vector, fn { identifier, val } ->
+      IO.puts "#{identifier}, #{val}, #{norm}"
       { identifier, val / norm }
     end)
   end
@@ -66,6 +67,9 @@ defmodule ForkingPaths.Helper do
       { _edge, v1, v2, _label } =  :digraph.edge(graph1, edge)
       :digraph.add_edge(graph2, v1, v2)
     end)
+
+    # delete graph1 
+    :digraph.delete(graph1)
 
     # return reference to graph2
     graph2
