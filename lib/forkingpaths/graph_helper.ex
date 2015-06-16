@@ -41,8 +41,11 @@ defmodule ForkingPaths.Helper do
     end) |> :math.sqrt
 
     Enum.map(vector, fn { identifier, val } ->
-      IO.puts "#{identifier}, #{val}, #{norm}"
-      { identifier, val / norm }
+      if norm != 0 do
+        { identifier, val / norm }
+      else
+        { identifier, 0 }
+      end
     end)
   end
 
